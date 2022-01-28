@@ -30,43 +30,43 @@ export default function RegisterPage() {
     <div>
       <form className={styles.registerForm} onSubmit={handleSubmit}>
         <h2>Register</h2>
-        <label htmlFor='email'>
+        <label htmlFor='displayName'>
           <span>Display Name</span>
           <input
-            id='displayName'
-            type='text'
-            name='displayName'
             value={displayName}
+            id='displayName'
+            name='displayName'
+            type='text'
             onChange={(event) => setDisplayName(event.target.value)}
           />
         </label>
         <label htmlFor='email'>
           <span>Email</span>
           <input
-            id='email'
-            type='email'
-            name='email'
             value={email}
+            id='email'
+            name='email'
+            type='email'
             onChange={(event) => setEmail(event.target.value)}
           />
         </label>
         <label htmlFor='password'>
           <span>Password</span>
           <input
+            value={password}
             id='password'
             name='password'
             type='password'
-            value={password}
             onChange={(event) => setPassword(event.target.value)}
           />
         </label>
-        <label htmlFor='password'>
+        <label htmlFor='passwordConfirmation'>
           <span>Confirm Password</span>
           <input
+            value={passwordConfirmation}
             id='passwordConfirmation'
             name='passwordConfirmation'
             type='password'
-            value={passwordConfirmation}
             onChange={(event) => setPasswordConfigmation(event.target.value)}
           />
         </label>

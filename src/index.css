@@ -4,6 +4,7 @@ body {
   font-family: Poppins, sans-serif;
   font-size: 1.1em;
   margin: 0;
+  background-color: #f7f7f7;
 }
 
 p,
@@ -23,8 +24,8 @@ ul {
 
 .btn {
   background: none;
-  border: 2px solid #2a9d8f;
-  color: #2a9d8f;
+  border: 2px solid #264653;
+  color: #264653;
   border-radius: 4px;
   font-weight: bold;
   font-size: 1em;
@@ -33,7 +34,7 @@ ul {
 }
 
 .btn:hover {
-  background: #2a9d8f;
+  background: #264653;
   color: #fff;
 }
 

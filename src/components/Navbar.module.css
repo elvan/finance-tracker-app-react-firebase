@@ -1,0 +1,30 @@
+.navbar {
+  box-sizing: border-box;
+  background-color: #83c5be;
+  padding: 1rem;
+  width: 100%;
+}
+
+.navbar ul {
+  display: flex;
+  align-items: center;
+  margin: 0 auto;
+  max-width: 900px;
+}
+
+.navbar button,
+.navbar a {
+  margin-left: 1rem;
+}
+
+.navbar a {
+  color: #333;
+  text-decoration: none;
+}
+
+.title {
+  font-weight: bold;
+  margin-right: auto;
+  letter-spacing: 1px;
+  font-size: 1.2rem;
+}

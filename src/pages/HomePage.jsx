@@ -9,7 +9,7 @@ export default function HomePage() {
   const { documents, error } = useCollection(
     'transactions',
     // @ts-ignore
-    ['userId', '==', user.uid],
+    ['uid', '==', user.uid],
     ['createdAt', 'desc']
   );
 
@@ -29,7 +29,7 @@ export default function HomePage() {
 
       <div className={styles.sidebar}>
         {/* @ts-ignore */}
-        <TransactionForm userId={user.uid} />
+        <TransactionForm uid={user.uid} />
       </div>
     </div>
   );

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useFirestore } from '../hooks/useFirestore';
 
-export default function TransactionForm({ userId }) {
+export default function TransactionForm({ uid }) {
   const [name, setName] = useState('');
   const [amount, setAmount] = useState('');
 
@@ -11,7 +11,7 @@ export default function TransactionForm({ userId }) {
     event.preventDefault();
 
     addDocument({
-      userId: userId,
+      uid: uid,
       name: name,
       amount: Number(amount),
     });

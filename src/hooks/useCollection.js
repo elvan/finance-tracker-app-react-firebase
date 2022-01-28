@@ -1,14 +1,24 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { projectFirestore } from '../config/firebase';
 
-export const useCollection = (collection) => {
+// Custom hook to get data from firestore in realtime
+export const useCollection = (collection, queryRef = []) => {
   const [documents, setDocuments] = useState(null);
   const [error, setError] = useState('');
+
+  // If we dont use a ref, infinite loop will occur
+  // 'queryRef' is an array and is "different" on each render
+  const query = useRef(queryRef).current;
 
   // Effect to fetch data from firestore
   useEffect(() => {
     // Create reference to firestore collection
-    const collectionRef = projectFirestore.collection(collection);
+    let collectionRef = projectFirestore.collection(collection);
+
+    if (query) {
+      // @ts-ignore
+      collectionRef = collectionRef.where(...query);
+    }
 
     // Subscribe to collectionRef and set documents state
     const unsubscribe = collectionRef.onSnapshot(
@@ -32,7 +42,7 @@ export const useCollection = (collection) => {
     return () => {
       unsubscribe();
     };
-  }, [collection]);
+  }, [collection, query]);
 
   // Return the documents and the error
   return { documents, error };

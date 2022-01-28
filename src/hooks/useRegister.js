@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { projectAuth } from '../config/firebase';
-import { AUTH_LOGIN_START } from '../context/constants';
+import { AUTH_LOGIN } from '../context/constants';
 import { useAuthContext } from './useAuthContext';
 
 const initialError = {
@@ -41,7 +41,7 @@ export const useRegister = () => {
 
       // Dispatch login action
       dispatch({
-        type: AUTH_LOGIN_START,
+        type: AUTH_LOGIN,
         payload: credential.user,
       });
 

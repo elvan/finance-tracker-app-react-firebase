@@ -6,12 +6,12 @@ import styles from './HomePage.module.css';
 
 export default function HomePage() {
   const { user } = useAuthContext();
-  const { documents, error } = useCollection('transactions', [
-    'userId',
-    '==',
+  const { documents, error } = useCollection(
+    'transactions',
     // @ts-ignore
-    user.uid,
-  ]);
+    ['userId', '==', user.uid],
+    ['createdAt', 'desc']
+  );
 
   return (
     <div className={styles.container}>

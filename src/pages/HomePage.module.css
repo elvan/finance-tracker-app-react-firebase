@@ -16,7 +16,7 @@
 .sidebar form {
   padding: 20px;
   border-radius: 8px;
-  background: #1f9751;
+  background: #2a9d8f;
 }
 
 .sidebar input,
@@ -51,7 +51,7 @@
 }
 
 .sidebar h3 {
-  color: #1f9751;
+  color: #2a9d8f;
   margin-bottom: 20px;
 }
 
@@ -74,7 +74,7 @@
   align-items: center;
   position: relative;
   overflow: hidden;
-  border-left: 4px solid #1f9751;
+  border-left: 4px solid #2a9d8f;
 }
 
 .transactions .name {

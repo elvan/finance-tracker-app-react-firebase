@@ -2,8 +2,9 @@ import { useEffect, useReducer, useState } from 'react';
 import { projectFirestore, timestamp } from '../config/firebase';
 
 const REQUEST_START = 'REQUEST_START';
-const REQUEST_SUCCESS = 'REQUEST_SUCCESS';
 const REQUEST_FAILURE = 'REQUEST_FAILURE';
+const ADDED_DOCUMENT = 'ADDED_DOCUMENT';
+const DELETED_DOCUMENT = 'DELETED_DOCUMENT';
 
 const initialState = {
   isPending: false,
@@ -22,13 +23,21 @@ const firestoreReducer = (state, action) => {
         error: null,
         document: null,
       };
-    case REQUEST_SUCCESS:
+    case ADDED_DOCUMENT:
       return {
         ...state,
         isPending: false,
         isSuccess: true,
         error: null,
         document: action.payload,
+      };
+    case DELETED_DOCUMENT:
+      return {
+        ...state,
+        isPending: false,
+        isSuccess: true,
+        error: null,
+        document: null,
       };
     case REQUEST_FAILURE:
       return {
@@ -66,7 +75,7 @@ export const useFirestore = (collection) => {
       const documentRef = await collectionRef.add({ ...document, createdAt });
 
       dispatchIfNotCancelled({
-        type: REQUEST_SUCCESS,
+        type: ADDED_DOCUMENT,
         payload: documentRef,
       });
     } catch (error) {
@@ -77,7 +86,22 @@ export const useFirestore = (collection) => {
     }
   };
 
-  const deleteDocument = async (id) => {};
+  // Delete a specific document by id
+  const deleteDocument = async (id) => {
+    // @ts-ignore
+    dispatch({ type: REQUEST_START });
+
+    try {
+      await collectionRef.doc(id).delete();
+
+      dispatchIfNotCancelled({ type: DELETED_DOCUMENT });
+    } catch (error) {
+      dispatchIfNotCancelled({
+        type: REQUEST_FAILURE,
+        payload: error.message,
+      });
+    }
+  };
 
   useEffect(() => {
     return () => {

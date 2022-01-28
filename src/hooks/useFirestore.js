@@ -4,11 +4,10 @@ import { projectFirestore, timestamp } from '../config/firebase';
 const REQUEST_START = 'REQUEST_START';
 const REQUEST_SUCCESS = 'REQUEST_SUCCESS';
 const REQUEST_FAILURE = 'REQUEST_FAILURE';
-const REQUEST_FINISH = 'REQUEST_FINISH';
 
 const initialState = {
   isPending: false,
-  success: null,
+  success: false,
   error: null,
   document: null,
 };
@@ -17,24 +16,21 @@ const firestoreReducer = (state, action) => {
   switch (action.type) {
     case REQUEST_START:
       return {
+        ...state,
         isPending: true,
-        succes: false,
-        error: null,
-        document: null,
       };
     case REQUEST_SUCCESS:
       return {
+        ...state,
         isPending: false,
         success: true,
-        error: false,
         document: action.payload,
       };
     case REQUEST_FAILURE:
       return {
+        ...state,
         isPending: false,
-        success: false,
         error: action.payload,
-        document: null,
       };
     default:
       break;

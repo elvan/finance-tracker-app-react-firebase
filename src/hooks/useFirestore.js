@@ -4,6 +4,7 @@ import { projectFirestore, timestamp } from '../config/firebase';
 const REQUEST_START = 'REQUEST_START';
 const REQUEST_SUCCESS = 'REQUEST_SUCCESS';
 const REQUEST_FAILURE = 'REQUEST_FAILURE';
+const REQUEST_FINISH = 'REQUEST_FINISH';
 
 const initialState = {
   isPending: false,

@@ -1,14 +1,28 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useFirestore } from '../hooks/useFirestore';
 
-export default function TransactionForm() {
+export default function TransactionForm({ userId }) {
   const [name, setName] = useState('');
   const [amount, setAmount] = useState('');
+
+  const { addDocument, response } = useFirestore('transactions');
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    console.log(`Submitting transaction: ${name} ${amount}`);
+    addDocument({
+      userId: userId,
+      name: name,
+      amount: Number(amount),
+    });
   };
+
+  useEffect(() => {
+    if (response?.success) {
+      setName('');
+      setAmount('');
+    }
+  }, [response?.success]);
 
   return (
     <>
@@ -22,6 +36,7 @@ export default function TransactionForm() {
             required
             minLength={3}
             maxLength={50}
+            disabled={response?.isPending}
             onChange={(event) => setName(event.target.value)}
           />
         </label>
@@ -31,11 +46,12 @@ export default function TransactionForm() {
             value={amount}
             type='number'
             required
+            disabled={response?.isPending}
             onChange={(event) => setAmount(event.target.value)}
           />
         </label>
-        <button className='btn' type='submit'>
-          Add Transaction
+        <button className='btn' type='submit' disabled={response?.isPending}>
+          {response?.isPending ? 'Adding Transaction...' : 'Add Transaction'}
         </button>
       </form>
     </>

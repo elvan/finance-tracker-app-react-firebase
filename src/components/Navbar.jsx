@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { useLogout } from '../hooks/userLogout';
+import { useLogout } from '../hooks/useLogout';
 import styles from './Navbar.module.css';
 
 export default function Navbar() {

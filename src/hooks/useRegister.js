@@ -1,13 +1,17 @@
 import { useState } from 'react';
 import { projectAuth } from '../config/firebase';
+import { AUTH_LOGIN_START } from '../context/constants';
+import { useAuthContext } from './useAuthContext';
+
+const initialError = {
+  message: '',
+};
 
 export const useRegister = () => {
-  const initialError = {
-    message: '',
-  };
-
   const [error, setError] = useState(initialError);
   const [pending, setPending] = useState(false);
+
+  const { dispatch } = useAuthContext();
 
   const register = async ({ email, password, displayName }) => {
     setPending(true);
@@ -32,8 +36,19 @@ export const useRegister = () => {
       // Send verification email
       // await credential.user.sendEmailVerification();
 
+      // Log user in
+      // await projectAuth.signInWithEmailAndPassword(email, password);
+
+      // Dispatch login action
+      dispatch({
+        type: AUTH_LOGIN_START,
+        payload: credential.user,
+      });
+
       // Reset state
       setPending(false);
+
+      // Clear error
       setError({ message: '' });
     } catch (error) {
       setError(error);

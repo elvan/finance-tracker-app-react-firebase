@@ -29,7 +29,7 @@ export default function RegisterPage() {
   return (
     <div>
       <form className={styles.registerForm} onSubmit={handleSubmit}>
-        {error && <p>{error.message}</p>}
+        {error.message && <p>{error.message}</p>}
 
         <h2>Register</h2>
         <label htmlFor='displayName'>

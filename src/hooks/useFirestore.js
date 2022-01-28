@@ -1,5 +1,5 @@
 import { useEffect, useReducer, useState } from 'react';
-import { projectFirestore } from '../config/firebase';
+import { projectFirestore, timestamp } from '../config/firebase';
 
 const REQUEST_START = 'REQUEST_START';
 const REQUEST_SUCCESS = 'REQUEST_SUCCESS';
@@ -59,7 +59,8 @@ export const useFirestore = (collection) => {
     dispatch({ type: REQUEST_START });
 
     try {
-      const documentRef = await collectionRef.add(document);
+      const createdAt = timestamp.fromDate(new Date());
+      const documentRef = await collectionRef.add({ ...document, createdAt });
 
       dispatchIfNotCancelled({
         type: REQUEST_SUCCESS,

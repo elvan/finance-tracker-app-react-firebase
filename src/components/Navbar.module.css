@@ -8,18 +8,20 @@
 .navbar ul {
   display: flex;
   align-items: center;
-  margin: 0 auto;
   max-width: 900px;
+  margin: 0 auto;
 }
 
 .navbar button,
 .navbar a {
+  display: inline-block;
   margin-left: 1rem;
 }
 
 .navbar a {
   color: #333;
   text-decoration: none;
+  padding: 0.5rem 0;
 }
 
 .title {

@@ -39,5 +39,6 @@ ul {
 
 .btn:disabled {
   background: #ccc;
+  border: 2px solid #777;
   color: #fff;
 }

@@ -8,7 +8,7 @@ export default function RegisterPage() {
   const [password, setPassword] = useState('');
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
 
-  const { pending, error, register } = useRegister();
+  const { isPending, error, register } = useRegister();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -38,7 +38,7 @@ export default function RegisterPage() {
             minLength={2}
             maxLength={25}
             required
-            disabled={pending}
+            disabled={isPending}
             onChange={(event) => setDisplayName(event.target.value)}
           />
         </label>
@@ -52,7 +52,7 @@ export default function RegisterPage() {
             minLength={5}
             maxLength={64}
             required
-            disabled={pending}
+            disabled={isPending}
             onChange={(event) => setEmail(event.target.value)}
           />
         </label>
@@ -66,7 +66,7 @@ export default function RegisterPage() {
             minLength={8}
             maxLength={64}
             required
-            disabled={pending}
+            disabled={isPending}
             onChange={(event) => setPassword(event.target.value)}
           />
         </label>
@@ -80,12 +80,12 @@ export default function RegisterPage() {
             minLength={8}
             maxLength={64}
             required
-            disabled={pending}
+            disabled={isPending}
             onChange={(event) => setPasswordConfirmation(event.target.value)}
           />
         </label>
-        <button className='btn' type='submit' disabled={pending}>
-          {pending ? 'Registering...' : 'Register'}
+        <button className='btn' type='submit' disabled={isPending}>
+          {isPending ? 'Registering...' : 'Register'}
         </button>
       </form>
     </div>

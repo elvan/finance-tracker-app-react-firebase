@@ -6,7 +6,7 @@ export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const { pending, error, login } = useLogin();
+  const { isPending, error, login } = useLogin();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -28,7 +28,7 @@ export default function LoginPage() {
             id='email'
             type='email'
             name='email'
-            disabled={pending}
+            disabled={isPending}
             onChange={(event) => setEmail(event.target.value)}
           />
         </label>
@@ -39,12 +39,12 @@ export default function LoginPage() {
             id='password'
             name='password'
             type='password'
-            disabled={pending}
+            disabled={isPending}
             onChange={(event) => setPassword(event.target.value)}
           />
         </label>
-        <button className='btn' type='submit' disabled={pending}>
-          {pending ? 'Logging in...' : 'Login'}
+        <button className='btn' type='submit' disabled={isPending}>
+          {isPending ? 'Logging in...' : 'Login'}
         </button>
       </form>
     </div>

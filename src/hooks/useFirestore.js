@@ -7,7 +7,7 @@ const REQUEST_FAILURE = 'REQUEST_FAILURE';
 
 const initialState = {
   isPending: false,
-  success: false,
+  isSuccess: false,
   error: null,
   document: null,
 };
@@ -18,19 +18,25 @@ const firestoreReducer = (state, action) => {
       return {
         ...state,
         isPending: true,
+        isSuccess: false,
+        error: null,
+        document: null,
       };
     case REQUEST_SUCCESS:
       return {
         ...state,
         isPending: false,
-        success: true,
+        isSuccess: true,
+        error: null,
         document: action.payload,
       };
     case REQUEST_FAILURE:
       return {
         ...state,
         isPending: false,
+        isSuccess: false,
         error: action.payload,
+        document: null,
       };
     default:
       break;
@@ -39,8 +45,8 @@ const firestoreReducer = (state, action) => {
 
 export const useFirestore = (collection) => {
   // @ts-ignore
-  const [response, dispatch] = useReducer(firestoreReducer, initialState);
   const [isCancelled, setIsCancelled] = useState(false);
+  const [response, dispatch] = useReducer(firestoreReducer, initialState);
 
   const collectionRef = projectFirestore.collection(collection);
 

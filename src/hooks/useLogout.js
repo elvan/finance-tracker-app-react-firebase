@@ -8,15 +8,14 @@ const initialError = {
 };
 
 export const useLogout = () => {
-  const [canceled, setCanceled] = useState(false);
-
+  const [isCancelled, setIsCancelled] = useState(false);
+  const [isPending, setIsPending] = useState(false);
   const [error, setError] = useState(initialError);
-  const [pending, setPending] = useState(false);
 
   const { dispatch } = useAuthContext();
 
   const logout = async () => {
-    setPending(true);
+    setIsPending(true);
     setError(initialError);
 
     try {
@@ -24,25 +23,25 @@ export const useLogout = () => {
 
       dispatch({ type: AUTH_LOGOUT });
     } catch (error) {
-      if (!canceled) {
+      if (!isCancelled) {
         setError(error);
       }
     } finally {
-      if (!canceled) {
-        setPending(false);
+      if (!isCancelled) {
+        setIsPending(false);
       }
     }
   };
 
   useEffect(() => {
     return () => {
-      setCanceled(true);
+      setIsCancelled(true);
     };
   }, []);
 
   return {
+    isPending,
     error,
-    pending,
     logout,
   };
 };

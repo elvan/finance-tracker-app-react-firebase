@@ -4,7 +4,7 @@ import { useLogout } from '../hooks/useLogout';
 import styles from './Navbar.module.css';
 
 export default function Navbar() {
-  const { pending, logout } = useLogout();
+  const { isPending, logout } = useLogout();
   const { user } = useAuthContext();
 
   return (
@@ -30,7 +30,7 @@ export default function Navbar() {
             {/* @ts-ignore */}
             <li>Hello, {user.displayName}</li>
             <li>
-              <button className='btn' onClick={logout} disabled={pending}>
+              <button className='btn' onClick={logout} disabled={isPending}>
                 Logout
               </button>
             </li>

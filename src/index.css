@@ -36,3 +36,8 @@ ul {
   background: #2a9d8f;
   color: #fff;
 }
+
+.btn:disabled {
+  background: #ccc;
+  color: #fff;
+}

@@ -6,7 +6,7 @@ export default function RegisterPage() {
   const [displayName, setDisplayName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [passwordConfirmation, setPasswordConfigmation] = useState('');
+  const [passwordConfirmation, setPasswordConfirmation] = useState('');
 
   const { pending, error, register } = useRegister();
 
@@ -19,19 +19,15 @@ export default function RegisterPage() {
     }
 
     register({ displayName, email, password });
-
-    setDisplayName('');
-    setEmail('');
-    setPassword('');
-    setPasswordConfigmation('');
   };
 
   return (
     <div>
       <form className={styles.registerForm} onSubmit={handleSubmit}>
-        {error.message && <p>{error.message}</p>}
-
         <h2>Register</h2>
+
+        {error.message && <p style={{ color: 'red' }}>{error.message}</p>}
+
         <label htmlFor='displayName'>
           <span>Display Name</span>
           <input
@@ -85,7 +81,7 @@ export default function RegisterPage() {
             maxLength={64}
             required
             disabled={pending}
-            onChange={(event) => setPasswordConfigmation(event.target.value)}
+            onChange={(event) => setPasswordConfirmation(event.target.value)}
           />
         </label>
         <button className='btn' type='submit' disabled={pending}>

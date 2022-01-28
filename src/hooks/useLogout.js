@@ -17,18 +17,12 @@ export const useLogout = () => {
 
   const logout = async () => {
     setPending(true);
+    setError(initialError);
 
     try {
-      // Log user out
       await projectAuth.signOut();
 
-      // Dispatch logout action
       dispatch({ type: AUTH_LOGOUT });
-
-      if (!canceled) {
-        setPending(false);
-        setError(initialError);
-      }
     } catch (error) {
       if (!canceled) {
         setError(error);

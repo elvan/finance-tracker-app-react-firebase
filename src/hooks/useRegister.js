@@ -17,9 +17,9 @@ export const useRegister = () => {
 
   const register = async ({ email, password, displayName }) => {
     setPending(true);
+    setError(initialError);
 
     try {
-      // Register user
       const credential = await projectAuth.createUserWithEmailAndPassword(
         email,
         password
@@ -29,21 +29,14 @@ export const useRegister = () => {
         throw new Error('Could not create user');
       }
 
-      // Add displayName to user
       await credential.user?.updateProfile({
         displayName,
       });
 
-      // Dispatch login action
       dispatch({
         type: AUTH_LOGIN,
         payload: credential.user,
       });
-
-      if (!canceled) {
-        setPending(false);
-        setError(initialError);
-      }
     } catch (error) {
       if (!canceled) {
         setError(error);

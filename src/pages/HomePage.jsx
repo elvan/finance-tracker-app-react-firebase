@@ -17,7 +17,14 @@ export default function HomePage() {
     <div className={styles.container}>
       <div className={styles.content}>
         {error && <p>{error}</p>}
-        {documents && <TransactionList transactions={documents} />}
+
+        {/* @ts-ignore */}
+        {documents && documents.length === 0 && <p>You have no transactions</p>}
+
+        {/* @ts-ignore */}
+        {documents && documents.length > 0 && (
+          <TransactionList transactions={documents} />
+        )}
       </div>
 
       <div className={styles.sidebar}>

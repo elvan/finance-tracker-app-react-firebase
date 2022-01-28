@@ -1,4 +1,4 @@
-import { AUTH_LOGIN, AUTH_LOGOUT } from './constants';
+import { AUTH_IS_READY, AUTH_LOGIN, AUTH_LOGOUT } from './constants';
 
 export const authReducer = (state, action) => {
   switch (action.type) {
@@ -11,6 +11,12 @@ export const authReducer = (state, action) => {
       return {
         ...state,
         user: null,
+      };
+    case AUTH_IS_READY:
+      return {
+        ...state,
+        user: action.payload,
+        authIsReady: true,
       };
     default:
       return state;

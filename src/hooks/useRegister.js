@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { projectAuth } from '../config/firebase';
 import { AUTH_LOGIN } from '../context/constants';
 import { useAuthContext } from './useAuthContext';
@@ -8,6 +8,8 @@ const initialError = {
 };
 
 export const useRegister = () => {
+  const [canceled, setCanceled] = useState(false);
+
   const [error, setError] = useState(initialError);
   const [pending, setPending] = useState(false);
 
@@ -33,29 +35,32 @@ export const useRegister = () => {
         displayName,
       });
 
-      // Send verification email
-      // await credential.user.sendEmailVerification();
-
-      // Log user in
-      // await projectAuth.signInWithEmailAndPassword(email, password);
-
       // Dispatch login action
       dispatch({
         type: AUTH_LOGIN,
         payload: credential.user,
       });
 
-      // Reset state
-      setPending(false);
-
-      // Clear error
-      setError({ message: '' });
+      if (!canceled) {
+        setPending(false);
+        setError({ message: '' });
+      }
     } catch (error) {
-      setError(error);
+      if (!canceled) {
+        setError(error);
+      }
     } finally {
-      setPending(false);
+      if (!canceled) {
+        setPending(false);
+      }
     }
   };
+
+  useEffect(() => {
+    return () => {
+      setCanceled(true);
+    };
+  }, []);
 
   return {
     error,

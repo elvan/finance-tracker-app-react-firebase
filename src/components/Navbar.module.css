@@ -30,3 +30,7 @@
   letter-spacing: 1px;
   font-size: 1.2rem;
 }
+
+.title a {
+  margin-left: 0;
+}

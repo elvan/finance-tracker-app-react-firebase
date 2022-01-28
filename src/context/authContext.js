@@ -17,6 +17,7 @@ export const AuthContextProvider = ({ children }) => {
     const unsubscribe = projectAuth.onAuthStateChanged((user) => {
       // @ts-ignore
       dispatch({ type: AUTH_IS_READY, payload: user });
+
       unsubscribe();
     });
   }, [dispatch]);

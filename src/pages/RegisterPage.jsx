@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useRegister } from '../hooks/useRegister';
 import styles from './RegisterPage.module.css';
 
 export default function RegisterPage() {
@@ -7,18 +8,17 @@ export default function RegisterPage() {
   const [password, setPassword] = useState('');
   const [passwordConfirmation, setPasswordConfigmation] = useState('');
 
+  const { pending, error, register } = useRegister();
+
   const handleSubmit = (event) => {
     event.preventDefault();
-
-    console.log('display name:', displayName);
-    console.log('email:', email);
-    console.log('password:', password);
-    console.log('password confirmation:', passwordConfirmation);
 
     if (password !== passwordConfirmation) {
       alert('Passwords do not match!');
       return;
     }
+
+    register({ displayName, email, password });
 
     setDisplayName('');
     setEmail('');
@@ -29,6 +29,8 @@ export default function RegisterPage() {
   return (
     <div>
       <form className={styles.registerForm} onSubmit={handleSubmit}>
+        {error && <p>{error.message}</p>}
+
         <h2>Register</h2>
         <label htmlFor='displayName'>
           <span>Display Name</span>
@@ -37,6 +39,10 @@ export default function RegisterPage() {
             id='displayName'
             name='displayName'
             type='text'
+            minLength={2}
+            maxLength={25}
+            required
+            disabled={pending}
             onChange={(event) => setDisplayName(event.target.value)}
           />
         </label>
@@ -47,6 +53,10 @@ export default function RegisterPage() {
             id='email'
             name='email'
             type='email'
+            minLength={5}
+            maxLength={64}
+            required
+            disabled={pending}
             onChange={(event) => setEmail(event.target.value)}
           />
         </label>
@@ -57,6 +67,10 @@ export default function RegisterPage() {
             id='password'
             name='password'
             type='password'
+            minLength={8}
+            maxLength={64}
+            required
+            disabled={pending}
             onChange={(event) => setPassword(event.target.value)}
           />
         </label>
@@ -67,11 +81,15 @@ export default function RegisterPage() {
             id='passwordConfirmation'
             name='passwordConfirmation'
             type='password'
+            minLength={8}
+            maxLength={64}
+            required
+            disabled={pending}
             onChange={(event) => setPasswordConfigmation(event.target.value)}
           />
         </label>
-        <button className='btn' type='submit'>
-          Login
+        <button className='btn' type='submit' disabled={pending}>
+          {pending ? 'Registering...' : 'Register'}
         </button>
       </form>
     </div>

@@ -1,13 +1,17 @@
 import { useState } from 'react';
 import { projectAuth } from '../config/firebase';
 
-export const userRegister = () => {
-  const [error, setError] = useState(null);
+export const useRegister = () => {
+  const initialError = {
+    message: '',
+  };
+
+  const [error, setError] = useState(initialError);
   const [pending, setPending] = useState(false);
 
   const register = async ({ email, password, displayName }) => {
     setPending(true);
-    setError(null);
+    setError({ message: '' });
 
     try {
       // Register user
@@ -15,7 +19,6 @@ export const userRegister = () => {
         email,
         password
       );
-      console.log(credential);
 
       if (!credential) {
         throw new Error('Could not create user');
@@ -31,9 +34,8 @@ export const userRegister = () => {
 
       // Reset state
       setPending(false);
-      setError(null);
+      setError({ message: '' });
     } catch (error) {
-      console.log(error);
       setError(error);
     } finally {
       setPending(false);

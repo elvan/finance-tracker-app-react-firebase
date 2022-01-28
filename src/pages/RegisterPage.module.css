@@ -1,12 +1,12 @@
 .registerForm {
   max-width: 25rem;
-  margin: 3rem auto;
-  padding: 1rem;
+  margin: 1rem auto;
+  padding: 1.5rem;
 }
 
 .registerForm label {
   display: block;
-  margin: 2rem auto;
+  margin: 1.5rem auto;
 }
 
 .registerForm span {

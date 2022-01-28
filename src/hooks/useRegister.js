@@ -17,7 +17,6 @@ export const useRegister = () => {
 
   const register = async ({ email, password, displayName }) => {
     setPending(true);
-    setError({ message: '' });
 
     try {
       // Register user
@@ -43,7 +42,7 @@ export const useRegister = () => {
 
       if (!canceled) {
         setPending(false);
-        setError({ message: '' });
+        setError(initialError);
       }
     } catch (error) {
       if (!canceled) {

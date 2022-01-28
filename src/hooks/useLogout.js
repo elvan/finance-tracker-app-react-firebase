@@ -3,10 +3,14 @@ import { projectAuth } from '../config/firebase';
 import { AUTH_LOGOUT } from '../context/constants';
 import { useAuthContext } from './useAuthContext';
 
+const initialError = {
+  message: '',
+};
+
 export const useLogout = () => {
   const [canceled, setCanceled] = useState(false);
 
-  const [error, setError] = useState({ message: '' });
+  const [error, setError] = useState(initialError);
   const [pending, setPending] = useState(false);
 
   const { dispatch } = useAuthContext();
@@ -23,7 +27,7 @@ export const useLogout = () => {
 
       if (!canceled) {
         setPending(false);
-        setError({ message: '' });
+        setError(initialError);
       }
     } catch (error) {
       if (!canceled) {

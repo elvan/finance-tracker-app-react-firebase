@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { useEffect, useReducer, useState } from 'react';
 import { projectFirestore, timestamp } from '../config/firebase';
 
@@ -53,7 +55,6 @@ const firestoreReducer = (state, action) => {
 };
 
 export const useFirestore = (collection) => {
-  // @ts-ignore
   const [isCancelled, setIsCancelled] = useState(false);
   const [response, dispatch] = useReducer(firestoreReducer, initialState);
 
@@ -61,13 +62,11 @@ export const useFirestore = (collection) => {
 
   const dispatchIfNotCancelled = (action) => {
     if (!isCancelled) {
-      // @ts-ignore
       dispatch(action);
     }
   };
 
   const addDocument = async (document) => {
-    // @ts-ignore
     dispatch({ type: REQUEST_START });
 
     try {
@@ -88,7 +87,6 @@ export const useFirestore = (collection) => {
 
   // Delete a specific document by id
   const deleteDocument = async (id) => {
-    // @ts-ignore
     dispatch({ type: REQUEST_START });
 
     try {

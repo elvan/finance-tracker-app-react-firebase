@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { useEffect, useRef, useState } from 'react';
 import { projectFirestore } from '../config/firebase';
 
@@ -17,12 +19,10 @@ export const useCollection = (collection, queryRef = [], orderByRef = []) => {
     let collectionRef = projectFirestore.collection(collection);
 
     if (query) {
-      // @ts-ignore
       collectionRef = collectionRef.where(...query);
     }
 
     if (orderBy) {
-      // @ts-ignore
       collectionRef = collectionRef.orderBy(...orderBy);
     }
 
@@ -35,11 +35,9 @@ export const useCollection = (collection, queryRef = [], orderByRef = []) => {
           id: docSnapshot.id,
         }));
 
-        // @ts-ignore
         setDocuments(documents);
       },
       (error) => {
-        // @ts-ignore
         setError(error.message);
       }
     );

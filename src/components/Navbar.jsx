@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { Link } from 'react-router-dom';
 import { useAuthContext } from '../hooks/useAuthContext';
 import { useLogout } from '../hooks/useLogout';
@@ -27,7 +29,6 @@ export default function Navbar() {
 
         {user && (
           <>
-            {/* @ts-ignore */}
             <li>Hello, {user.displayName}</li>
             <li>
               <button className='btn' onClick={logout} disabled={isPending}>

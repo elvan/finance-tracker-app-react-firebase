@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { useEffect, useReducer } from 'react';
 import { projectAuth } from '../config/firebase';
 import { AuthContext, initialAuth } from './authContext';
@@ -9,7 +11,6 @@ export const AuthContextProvider = ({ children }) => {
 
   useEffect(() => {
     const unsubscribe = projectAuth.onAuthStateChanged((user) => {
-      // @ts-ignore
       dispatch({ type: AUTH_IS_READY, payload: user });
 
       unsubscribe();

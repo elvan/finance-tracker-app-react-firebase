@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import TransactionForm from '../components/TransactionForm';
 import TransactionList from '../components/TransactionList';
 import { useAuthContext } from '../hooks/useAuthContext';
@@ -8,7 +10,6 @@ export default function HomePage() {
   const { user } = useAuthContext();
   const { documents, error } = useCollection(
     'transactions',
-    // @ts-ignore
     ['uid', '==', user.uid],
     ['createdAt', 'desc']
   );
@@ -18,17 +19,14 @@ export default function HomePage() {
       <div className={styles.content}>
         {error && <p>{error}</p>}
 
-        {/* @ts-ignore */}
         {documents && documents.length === 0 && <p>You have no transactions</p>}
 
-        {/* @ts-ignore */}
         {documents && documents.length > 0 && (
           <TransactionList transactions={documents} />
         )}
       </div>
 
       <div className={styles.sidebar}>
-        {/* @ts-ignore */}
         <TransactionForm uid={user.uid} />
       </div>
     </div>
